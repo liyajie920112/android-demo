@@ -16,8 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestAutoUpdate">
-        <meta-data android:name="PGY_API_KEY" android:value="0382e903e11a2c7abce6b06b4c68b21c"/>
-        <meta-data android:name="PGY_APP_KEY" android:value="138f642a3599e1be4e5b5ec4f47c679a"/>
+        <meta-data android:name="PGY_API_KEY" android:value="00a0e999d5143e3e332c5430608f4bf7"/>
+        <meta-data android:name="PGY_APP_KEY" android:value="3a2094120ab68d739beada11964daa5f"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.testautoupdate.fileprovider"
