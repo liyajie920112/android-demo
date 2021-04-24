@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                         dialog.setTitle("更新提示");
                         if (isWifi()) {
-                            dialog.setMessage("发现新版本");
+                            dialog.setMessage("发现新版本:" + model.getBuildVersion());
                         } else {
                             double size = Double.parseDouble(model.getBuildFileSize()) / (1024 * 1024);
-                            dialog.setMessage("发现新版本  当前为移动网络, 立即更新将消耗移动流量" + String.format("%.2f", size) + "M");
+                            dialog.setMessage("发现新版本 :" + model.getBuildVersion() + " 当前为移动网络, 立即更新将消耗移动流量" + String.format("%.2f", size) + "M");
                         }
                         dialog.setCancelable(false);
                         if (!model.getNeedForceUpdate()) {
@@ -108,14 +108,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initPermision() {
         List<String> list = new ArrayList<>();
-        for(String permission : permissions) {
+        for (String permission : permissions) {
             int checkPermission = ContextCompat.checkSelfPermission(this, permission);
             if (checkPermission == PackageManager.PERMISSION_DENIED) {
                 list.add(permission);
             }
         }
         String[] d = list.toArray(new String[list.size()]);
-        ActivityCompat.requestPermissions(this, d, 100);
+        if (d.length > 0) {
+            ActivityCompat.requestPermissions(this, d, 100);
+        }
     }
 
     ProgressDialog bar;
@@ -202,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
         }
         startActivity(intent);
-        finish();
     }
 
     void checkUpdate(CheckUpdateCallback cb) {
@@ -311,11 +312,11 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         String p = "";
-        for(int i = 0; i < permissions.length; i++) {
+        for (int i = 0; i < permissions.length; i++) {
             p += permissions[i] + "-";
         }
         String s = "";
-        for(int i = 0; i < grantResults.length; i++) {
+        for (int i = 0; i < grantResults.length; i++) {
             s += grantResults[i] + "   ";
         }
         Log.d(TAG, "onRequestPermissionsResult: " + requestCode + "-" + p + "=" + s);
